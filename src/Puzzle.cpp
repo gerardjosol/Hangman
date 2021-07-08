@@ -1,4 +1,5 @@
 #include "Puzzle.h"
+#include <iostream>
 
 void Puzzle::initGame(const std::string& strDict)
 {
@@ -8,6 +9,8 @@ void Puzzle::initGame(const std::string& strDict)
 	if(!initDictionary(strDict))
 	{	
 		//throw an exception
+		std::cout << "Couldn't initialize dictionary.\n";
+		_isGame = false;
 	}
 }
 
@@ -65,6 +68,76 @@ void Puzzle::displayWordList()
 	}
 }
 
+void Puzzle::displayGallows(int lives)
+{
+	switch(lives)
+	{
+		case 0:
+			std::cout << "+--+  " << std::endl;
+			std::cout << "|  |  " << std::endl;
+			std::cout << "|  O  " << std::endl;
+			std::cout << "| /|\\" << std::endl;
+			std::cout << "| / \\" << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "+---- " << std::endl;
+			break;
+		case 1:
+			std::cout << "+--+   " << std::endl;
+			std::cout << "|  |   " << std::endl;
+			std::cout << "|  O   " << std::endl;
+			std::cout << "| /|\\ " << std::endl;
+			std::cout << "| /    " << std::endl;
+			std::cout << "|      " << std::endl;
+			std::cout << "+----  " << std::endl;
+			break;
+		case 2:
+			std::cout << "+--+   " << std::endl;
+			std::cout << "|  |   " << std::endl;
+			std::cout << "|  O   " << std::endl;
+			std::cout << "| /|\\ " << std::endl;
+			std::cout << "|      " << std::endl;
+			std::cout << "|      " << std::endl;
+			std::cout << "+----  " << std::endl;
+			break;
+		case 3:
+			std::cout << "+--+  " << std::endl;
+			std::cout << "|  |  " << std::endl;
+			std::cout << "|  O  " << std::endl;
+			std::cout << "| /|  " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "+---- " << std::endl;
+			break;
+		case 4:
+			std::cout << "+--+  " << std::endl;
+			std::cout << "|  |  " << std::endl;
+			std::cout << "|  O  " << std::endl;
+			std::cout << "|  |  " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "+---- " << std::endl;
+			break;
+		case 5:
+			std::cout << "+--+  " << std::endl;
+			std::cout << "|  |  " << std::endl;
+			std::cout << "|  O  " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "+---- " << std::endl;
+			break;
+		case 6:
+			std::cout << "+--+  " << std::endl;
+			std::cout << "|  |  " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "|     " << std::endl;
+			std::cout << "+---- " << std::endl;
+			break;	
+	}
+}
+
 void Puzzle::displayPuzzleString()
 {
 	std::cout << "     ";
@@ -88,12 +161,10 @@ bool Puzzle::isInBoard(const char c)
 {
 	int charIndex = strBoard.find(c);
 	if(charIndex < 0) 
-	{
 		return false;
-	}
 	else 
 	{
-		strBoard.erase(strBoard.begin()+charIndex);
+		strBoard.erase(strBoard.begin() + charIndex);
 		return true;
 	}
 }
@@ -108,18 +179,12 @@ void Puzzle::openPuzzle(const int ansIndex)
 	char cLetter = answerString[ansIndex];
 	puzzleString[ansIndex] = cLetter;
 						
-	for(int i=ansIndex+1; i<answerString.size(); i++) //find all same letters
-	{
-		if(answerString[i] == cLetter)
-		{
+	for(int i = ansIndex + 1; i < answerString.size(); i++) //find all same letters
+		if(answerString[i] == cLetter) 
 			puzzleString[i] = cLetter;
-		}
-	}
 	
-	if(puzzleString.find('_') == std::string::npos)
-	{
+	if(puzzleString.find('_') == std::string::npos) 
 		_isWin = true;
-	}
 }
 
 void Puzzle::loseLife()

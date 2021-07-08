@@ -28,6 +28,7 @@ public:
 	
 	void initGame(const std::string& strDict);   //get puzzle from dictionary
 	void initPuzzle(); 							//reset lives, get a new word
+	void displayGallows(int lives);
 	void displayWordList();
 	void displayPuzzleString();
 	

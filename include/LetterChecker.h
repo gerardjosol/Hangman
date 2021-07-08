@@ -9,6 +9,7 @@
 #define __LETTERCHECKER_H_INCLUDED__
 
 #include <iostream>
+#include <cctype>
 
 class LetterChecker
 {
