@@ -14,7 +14,7 @@ class Puzzle
 {
 private:
 	int nWins, nLosses, nLives;
-	bool _isGame, _isAlive, _isWin;
+	bool _isGame, _isAlive, _isWin, _isMainMenu;
 	std::vector<std::string> vWordList;
 	std::string answerString, puzzleString, strBoard;
 	
@@ -28,6 +28,7 @@ public:
 	
 	void initGame(const std::string& strDict);   //get puzzle from dictionary
 	void initPuzzle(); 							//reset lives, get a new word
+	void initMainMenu();
 	void displayGallows(int lives);
 	void displayWordList();
 	void displayPuzzleString();
@@ -35,6 +36,7 @@ public:
 	bool isWin() { return _isWin; }	
 	bool isAlive() { return _isAlive; }
 	bool isGame() { return _isGame; }
+	bool isMainMenu() { return _isMainMenu;	}
 	
 	std::string getAnswer() {return answerString; }
 	int getWins() {return nWins; }

@@ -6,6 +6,7 @@ void Puzzle::initGame(const std::string& strDict)
 	nWins = 0;
 	nLosses = 0;
 	_isGame = true;
+	_isMainMenu = true;
 	if(!initDictionary(strDict))
 	{	
 		//throw an exception
@@ -26,6 +27,12 @@ void Puzzle::initPuzzle()
 	{	
 		puzzleString += '_';
 	}	
+}
+
+void Puzzle::initMainMenu(){
+	_isMainMenu = true;
+	nLosses = 0;
+	nWins = 0;
 }
 
 bool Puzzle::initDictionary(const std::string& strFileName)
