@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 {	
 	srand(time(NULL));
 	Puzzle p("dictionary_many.txt");	
-	int input;
+	std::string input;
 	std::string strInput;
 	//p.displayWordList();                      //uncomment to see the word list loaded for the game
 	LetterFunction *lf = new LetterFunction();
@@ -29,10 +29,10 @@ int main(int argc, char** argv)
 			std::cout << "[0] - Exit Game \n";
 			std::cin >> input;
 			
-			if(input == 1){
+			if(input == "1"){
 				p.initPuzzle();
 				
-				while (p.isGame() && p.isAlive() && !p.isWin() )
+				while (p.isGame() && p.isAlive() && !p.isWin() && !p.isMainMenu())
 				{
 					system("cls");
 			
@@ -68,62 +68,67 @@ int main(int argc, char** argv)
 				
 					if(p.isWin())
 					{
-						system("cls");
-				
-						p.displayGallows(p.getLives());
-						std::cout << "Hangman! Current Lives: " << p.getLives() << " | wins: " << p.getWins() << " | losses: " << p.getLosses() << "\n\n";
-						p.displayPuzzleString();
-						p.displayBoard();
-			
 						p.addWin();
-						std::cout << "\nCongratulations, you correctly guessed the word [" << p.getAnswer() << "]!" << std::endl;
-						std::cout << "\nWould you like to keep playing?" << std::endl;
-						std::cout << "[Y] - Keep playing!" << std::endl;
-						std::cout << "[N] - Return to main menu" << std::endl;
-						std::cin >> strInput;
+						while(p.isWin()){
+							system("cls");
+							
+							p.displayGallows(p.getLives());
+							std::cout << "Hangman! Current Lives: " << p.getLives() << " | wins: " << p.getWins() << " | losses: " << p.getLosses() << "\n\n";
+							p.displayPuzzleString();
+							p.displayBoard();
+							
+							std::cout << "\nCongratulations, you correctly guessed the word [" << p.getAnswer() << "]!" << std::endl;
+							std::cout << "\nWould you like to keep playing?" << std::endl;
+							std::cout << "[Y] - Keep playing!" << std::endl;
+							std::cout << "[N] - Return to main menu" << std::endl;
+							std::cin >> strInput;
 						
-						if(strInput == "Y" || strInput == "y"){
-							p.initPuzzle();
-						}
-						else if(strInput == "N" || strInput == "n"){
-							p.initMainMenu();
-						}
-						else{
-							std::cout << "Invalid input!" << std::endl;
-							system("pause");
-						}
+							if(strInput == "Y" || strInput == "y"){
+								p.initPuzzle();
+							}
+							else if(strInput == "N" || strInput == "n"){
+								p.initMainMenu();
+							}
+							else{
+								std::cout << "Invalid input!" << std::endl;
+								system("pause");
+							}
+						}	
 					}
 					else if(!p.isAlive())
 					{
-						system("cls");
-				
-						p.displayGallows(p.getLives());
-						std::cout << "Hangman! Current Lives: " << p.getLives() << " | wins: " << p.getWins() << " | losses: " << p.getLosses() << "\n\n";
-						p.displayPuzzleString();
-						p.displayBoard();
-				
 						p.addLoss();
-						std::cout << "\nSorry, the correct word is [" << p.getAnswer() << "]!" << std::endl;
-						std::cout << "\nWould you like to keep playing?" << std::endl;
-						std::cout << "[Y] - Keep playing!" << std::endl;
-						std::cout << "[N] - Return to main menu" << std::endl;
-						std::cin >> strInput;
+						while(!p.isAlive())
+						{
+							system("cls");
+				
+							p.displayGallows(p.getLives());
+							std::cout << "Hangman! Current Lives: " << p.getLives() << " | wins: " << p.getWins() << " | losses: " << p.getLosses() << "\n\n";
+							p.displayPuzzleString();
+							p.displayBoard();
+				
+							std::cout << "\nSorry, the correct word is [" << p.getAnswer() << "]!" << std::endl;
+							std::cout << "\nWould you like to keep playing?" << std::endl;
+							std::cout << "[Y] - Keep playing!" << std::endl;
+							std::cout << "[N] - Return to main menu" << std::endl;
+							std::cin >> strInput;
 						
-						if(strInput == "Y" || strInput == "y"){
-							p.initPuzzle();
-						}
-						else if(strInput == "N" || strInput == "n"){
-							p.initMainMenu();
-						}
-						else{
-							std::cout << "Invalid input!" << std::endl;
-							system("pause");
+							if(strInput == "Y" || strInput == "y"){
+								p.initPuzzle();
+							}
+							else if(strInput == "N" || strInput == "n"){
+								p.initMainMenu();
+							}
+							else{
+								std::cout << "Invalid input!" << std::endl;
+								system("pause");
+							}
 						}
 					}
 				}			
 			}
 			
-			else if(input == 0){
+			else if(input == "0"){
 				return 0;
 			}
 			else{

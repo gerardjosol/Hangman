@@ -19,6 +19,7 @@ void Puzzle::initPuzzle()
 {
 	_isAlive = true;
 	_isWin = false;
+	_isMainMenu = false;
 	nLives = 6;	
 	strBoard = {"abcdefghijklmnopqrstuvwxyz"};
 	answerString = pickWord();	
@@ -29,8 +30,11 @@ void Puzzle::initPuzzle()
 	}	
 }
 
-void Puzzle::initMainMenu(){
+void Puzzle::initMainMenu()
+{
 	_isMainMenu = true;
+	_isAlive = true;
+	_isWin = false;
 	nLosses = 0;
 	nWins = 0;
 }
